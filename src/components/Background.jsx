@@ -40,11 +40,11 @@ export default function SmokeIntro() {
       smokes.forEach((smoke, i) => {
         smoke.x += smoke.driftX;
         smoke.y += smoke.driftY;
-        smoke.radius += 0.0005;
-        smoke.alpha -= 0.005;
+        smoke.radius += 0.5;
+        smoke.alpha -= 0.004;
 
         if (smoke.alpha <= 0) {
-          smokes.splice(i, 1);
+          smokes.splice(i, 5);
         } else {
           const grad = ctx.createRadialGradient(
             smoke.x,
