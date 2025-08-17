@@ -40,8 +40,8 @@ export default function SmokeIntro() {
       smokes.forEach((smoke, i) => {
         smoke.x += smoke.driftX;
         smoke.y += smoke.driftY;
-        smoke.radius += 0.5;
-        smoke.alpha -= 0.002;
+        smoke.radius += 0.0005;
+        smoke.alpha -= 0.005;
 
         if (smoke.alpha <= 0) {
           smokes.splice(i, 1);
@@ -96,7 +96,7 @@ export default function SmokeIntro() {
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
       {/* Cột chữ + button */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center space-y-6 px-4 text-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center space-y-6 px-4 text-center" style={{zIndex: 30}}>
         {/* Typewriter Text */}
         <p className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold italic leading-tight">
           {displayedText}
