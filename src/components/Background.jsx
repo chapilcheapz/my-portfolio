@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function SmokeIntro() {
   const canvasRef = useRef(null);
+  const navigate = useNavigate();
 
   // Typewriter state
   const [displayedText, setDisplayedText] = useState("");
@@ -107,6 +109,9 @@ export default function SmokeIntro() {
           initial={{ opacity: 0, scale: 0.999 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 4, ease: "easeOut" }}
+          onClick={() => {
+            navigate('/portfolio'); 
+          }}
           className="
             relative px-8 sm:px-10 md:px-12 py-3 sm:py-4
             text-base sm:text-lg md:text-xl

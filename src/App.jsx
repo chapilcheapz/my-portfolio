@@ -1,4 +1,4 @@
-import Intro from "./components/Intro";
+import Intro from "./pages/Intro";
 import ParticlesBackground from "./components/ParticlesBackground";
 
 export default function App() {

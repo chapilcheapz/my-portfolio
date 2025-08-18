@@ -8,17 +8,11 @@ const ParticlesBackground = () => {
     const script = document.createElement("script");
     script.src = "/particles.js";
     script.onload = () => {
-      // Khởi tạo particles sau khi script đã load
-      console.log("particles.js loaded");
-      console.log("window.particlesJS:", window.particlesJS);
-
       // Đợi một chút để đảm bảo DOM đã ready
       setTimeout(() => {
         const element = document.getElementById("particles-js");
-        console.log("particles-js element:", element);
-
+        
         if (window.particlesJS && element) {
-          console.log("Initializing particles");
           window.particlesJS("particles-js", {
             particles: {
               number: {
