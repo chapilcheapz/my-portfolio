@@ -20,15 +20,15 @@ export default function Portfolio() {
             <div className="space-y-4">
               <div className="border-l-4 border-blue-500 pl-4">
                 <h3 className="text-lg font-semibold">Frontend Development</h3>
-                <p className="text-gray-400">React, Vue, JavaScript, TypeScript</p>
+                <p className="text-gray-400">React, Vue, JavaScript</p>
               </div>
               <div className="border-l-4 border-green-500 pl-4">
                 <h3 className="text-lg font-semibold">Backend Development</h3>
-                <p className="text-gray-400">Node.js, Python, Database</p>
+                <p className="text-gray-400">PHP (Laravel)</p>
               </div>
               <div className="border-l-4 border-purple-500 pl-4">
-                <h3 className="text-lg font-semibold">3D Graphics</h3>
-                <p className="text-gray-400">Three.js, WebGL, 3D Animation</p>
+                <h3 className="text-lg font-semibold">...</h3>
+                <p className="text-gray-400">...</p>
               </div>
             </div>
           </div>
