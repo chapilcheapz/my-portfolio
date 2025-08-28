@@ -100,7 +100,7 @@ export default function SmokeIntro() {
       {/* Cột chữ + button */}
       <div className="absolute inset-0 flex flex-col items-center justify-center space-y-6 px-4 text-center" style={{zIndex: 30}}>
         {/* Typewriter Text */}
-        <p className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold italic leading-tight">
+        <p className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold italic leading-tight select-none">
           {displayedText}
         </p>
 
@@ -124,6 +124,7 @@ export default function SmokeIntro() {
             shadow-[0_0_25px_rgba(255,255,255,0.8)]
             hover:scale-105
             cursor-pointer
+            select-none
           "
         >
           Enter Portfolio
