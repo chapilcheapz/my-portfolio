@@ -1,6 +1,6 @@
-import Background from "../components/Background";
+import SmokeIntro from "../components/Intro/SmokeIntro";
 
 export default function Intro() {
-    return <Background />
+    return <SmokeIntro />
     
 }
