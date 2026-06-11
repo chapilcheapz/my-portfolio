@@ -313,7 +313,7 @@ export default function CircuitBackground({
       className={`fixed inset-0 overflow-hidden -z-10 ${className}`}
       {...props}
     >
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full circuit-canvas" />
       {children && <div className="relative z-10 h-full w-full">{children}</div>}
     </div>
   );

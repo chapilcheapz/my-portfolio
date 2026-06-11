@@ -198,6 +198,7 @@ export default class Container {
     setTimeout(() => {
       toPng(document.body, {
         pixelRatio: 1,
+        skipFonts: true, // Bỏ qua việc tải và nhúng font chữ base64 để tăng tốc độ chụp màn hình lên gấp 10 lần
         filter: function (node) {
           if (node.classList) {
             if (
@@ -207,6 +208,10 @@ export default class Container {
             ) {
               return false;
             }
+          }
+          // Bỏ qua các canvas khác (như canvas 3D của Card3D) ngoại trừ circuit-canvas của hình nền
+          if (node.tagName === 'CANVAS' && !node.classList.contains('circuit-canvas')) {
+            return false;
           }
           return true;
         }
@@ -241,6 +246,7 @@ export default class Container {
     img.onload = () => {
       this.setupShader(img)
       this.webglInitialized = true
+      this.element.classList.add('webgl-ready')
     }
   }
 
