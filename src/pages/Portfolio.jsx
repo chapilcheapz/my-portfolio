@@ -34,7 +34,6 @@ export default function Portfolio() {
             <p className="text-lg md:text-xl text-gray-400 leading-relaxed font-light">
               Tôi là <span className="text-white font-medium">Hoàng Quân</span>. Đam mê kiến tạo những trải nghiệm số mượt mà, tương tác trực quan và giải pháp công nghệ tối ưu.
             </p>
-
            
           </div>
         </div>

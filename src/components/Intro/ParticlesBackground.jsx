@@ -141,6 +141,7 @@ const ParticlesBackground = () => {
         height: "100%",
         zIndex: 10,
         pointerEvents: "auto",
+        backgroundColor: "black"
       }}
     />
   );
