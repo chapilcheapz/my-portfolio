@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 export default function SmokeIntro() {
@@ -105,7 +105,7 @@ export default function SmokeIntro() {
         </p>
 
         {/* Button */}
-        <motion.button
+        <Motion.button
           initial={{ opacity: 0, scale: 0.999 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 4, ease: "easeOut" }}
@@ -128,7 +128,7 @@ export default function SmokeIntro() {
           "
         >
           Enter Portfolio
-        </motion.button>
+        </Motion.button>
       </div>
     </div>
   );
