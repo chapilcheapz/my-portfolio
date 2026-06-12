@@ -1,40 +1,43 @@
 import React from 'react';
+import ScrollReveal from './ScrollReveal';
 
 export default function ContactSection() {
   return (
     <div id="contact" className="min-h-screen flex flex-col justify-between relative z-10 bg-black/80 border-t border-white/5 pt-24 pb-8 px-6 md:px-12">
       {/* Phần Thống Kê (Stats) */}
       <div className="w-full max-w-5xl mx-auto grid grid-cols-3 gap-4 md:gap-8 text-center py-8">
-        <div className="flex flex-col items-center">
+        <ScrollReveal variant="fadeUp" delay={0.1} className="flex flex-col items-center">
           <span className="font-serif italic text-5xl md:text-7xl font-light text-white tracking-tight">1+</span>
           <span className="text-[10px] md:text-xs font-mono tracking-widest text-gray-500 uppercase mt-3">Years Experience</span>
-        </div>
-        <div className="flex flex-col items-center">
+        </ScrollReveal>
+        <ScrollReveal variant="fadeUp" delay={0.3} className="flex flex-col items-center">
           <span className="font-serif italic text-5xl md:text-7xl font-light text-white tracking-tight">15+</span>
           <span className="text-[10px] md:text-xs font-mono tracking-widest text-gray-500 uppercase mt-3">Projects Done</span>
-        </div>
-        <div className="flex flex-col items-center">
+        </ScrollReveal>
+        <ScrollReveal variant="fadeUp" delay={0.5} className="flex flex-col items-center">
           <span className="font-serif italic text-5xl md:text-7xl font-light text-white tracking-tight">100%</span>
           <span className="text-[10px] md:text-xs font-mono tracking-widest text-gray-500 uppercase mt-3">Satisfied Clients</span>
-        </div>
+        </ScrollReveal>
       </div>
 
       {/* Phần Center gồm Marquee và Nút Liên Hệ */}
       <div className="w-full flex flex-col items-center space-y-12 my-auto">
         {/* Phần Chữ Chạy Nền (Marquee) */}
-        <div className="relative overflow-hidden w-full py-6 md:py-8 select-none pointer-events-none border-y border-white/[0.08]">
-          <div className="flex whitespace-nowrap animate-marquee w-max">
-            <div className="text-5xl md:text-7xl lg:text-8xl font-serif italic uppercase text-white/[0.35] tracking-widest pr-4">
-              Building The Future • Building The Future • Building The Future • Building The Future •&nbsp;
-            </div>
-            <div className="text-5xl md:text-7xl lg:text-8xl font-serif italic uppercase text-white/[0.35] tracking-widest pr-4">
-              Building The Future • Building The Future • Building The Future • Building The Future •&nbsp;
+        <ScrollReveal variant="zoomIn" delay={0.2} duration={0.8} className="w-full">
+          <div className="relative overflow-hidden w-full py-6 md:py-8 select-none pointer-events-none border-y border-white/[0.08]">
+            <div className="flex whitespace-nowrap animate-marquee w-max">
+              <div className="text-5xl md:text-7xl lg:text-8xl font-serif italic uppercase text-white/[0.35] tracking-widest pr-4">
+                Building The Future • Building The Future • Building The Future • Building The Future •&nbsp;
+              </div>
+              <div className="text-5xl md:text-7xl lg:text-8xl font-serif italic uppercase text-white/[0.35] tracking-widest pr-4">
+                Building The Future • Building The Future • Building The Future • Building The Future •&nbsp;
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Phần Nút Liên Hệ */}
-        <div className="flex flex-col items-center space-y-4">
+        <ScrollReveal variant="fadeUp" delay={0.4} className="flex flex-col items-center space-y-4">
           <span className="text-[10px] md:text-xs font-mono tracking-widest text-gray-500 uppercase">Get in touch</span>
           <a 
             href="mailto:hoangquan.dev@gmail.com" 
@@ -43,12 +46,11 @@ export default function ContactSection() {
             <span>hquan12323@gmail.com</span>
             <span className="text-gray-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
           </a>
-        </div>
+        </ScrollReveal>
       </div>
 
       {/* Footer Bottom */}
-      <div className="w-full max-w-5xl mx-auto text-center mt-auto pt-8 border-t border-white/5">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div  className="flex flex-col md:flex-row justify-between items-center gap-4">
           {/* Social Links */}
           <div className="flex space-x-6 pointer-events-auto">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-[10px] md:text-xs font-mono tracking-widest text-gray-500 hover:text-white transition uppercase">Facebook</a>
@@ -64,7 +66,7 @@ export default function ContactSection() {
             <span className="text-[10px] md:text-xs font-mono tracking-widest text-gray-500">Available for projects</span>
           </div>
         </div>
-      </div>
+      
     </div>
   );
 }

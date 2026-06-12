@@ -194,17 +194,22 @@ export default class Container {
 
   capturePageSnapshot() {
     
-    // Delay capture slightly to ensure WebGL/Canvas backgrounds have rendered their first frame
+    // Delay capture slightly to ensure WebGL/Canvas backgrounds have rendered their first frame and animations are visible
     setTimeout(() => {
+      // Tạm thời thêm class để cưỡng ép hiển thị toàn bộ chữ/card của các section trong khi chụp snapshot
+      document.body.classList.add('is-capturing-snapshot');
+
       toPng(document.body, {
         pixelRatio: 1,
         skipFonts: true, // Bỏ qua việc tải và nhúng font chữ base64 để tăng tốc độ chụp màn hình lên gấp 10 lần
+        backgroundColor: '#05060a', // Đảm bảo toàn bộ ảnh chụp có nền đen đồng nhất, tránh trong suốt ở phần dưới
         filter: function (node) {
           if (node.classList) {
             if (
               node.classList.contains('glass-container') ||
               node.classList.contains('glass-button') ||
-              node.classList.contains('glass-button-text')
+              node.classList.contains('glass-button-text') ||
+              node.classList.contains('exclude-from-snapshot')
             ) {
               return false;
             }
@@ -217,6 +222,9 @@ export default class Container {
         }
       })
         .then(dataUrl => {
+          // Xóa class ngay sau khi chụp xong để giao diện trở lại hoạt động bình thường
+          document.body.classList.remove('is-capturing-snapshot');
+          
           Container.pageSnapshot = dataUrl
           Container.isCapturing = false
 
@@ -231,11 +239,14 @@ export default class Container {
           })
         })
         .catch(error => {
+          // Xóa class ngay cả khi có lỗi xảy ra
+          document.body.classList.remove('is-capturing-snapshot');
+          
           console.error('Error capturing snapshot:', error)
           Container.isCapturing = false
           Container.waitingForSnapshot = []
         })
-    }, 100)
+    }, 600)
   }
 
   initWebGL() {

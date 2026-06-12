@@ -1,29 +1,39 @@
 import React from 'react';
+import ScrollReveal from './ScrollReveal';
+import { motion  } from "framer-motion";
 
 export default function ExperienceSection() {
   return (
     <div id="experience" className="min-h-screen flex items-center justify-center relative z-10 p-12 bg-black/50 border-t border-white/5">
       <div className="max-w-4xl w-full space-y-10">
         {/* Header */}
-        <div className="space-y-3">
-          <div className="flex items-center space-x-3 text-xs font-mono tracking-widest text-gray-500 uppercase">
-            <span className="w-8 h-[1px] bg-white/20"></span>
-            <span>Journey</span>
+        <ScrollReveal variant="fadeUp" delay={0.1}>
+          <div className="space-y-3">
+            <div className="flex items-center space-x-3 text-xs font-mono tracking-widest text-gray-500 uppercase">
+              <span className="w-8 h-[1px] bg-white/20"></span>
+              <span>Journey</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+              My <span className="font-serif italic font-light text-cyan-400">Experience</span>
+            </h2>
+            <p className="text-sm md:text-base text-gray-400 leading-relaxed font-light">
+              My professional timeline and career highlights.
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
-            My <span className="font-serif italic font-light text-cyan-400">Experience</span>
-          </h2>
-          <p className="text-sm md:text-base text-gray-400 leading-relaxed font-light">
-            My professional timeline and career highlights.
-          </p>
-        </div>
+        </ScrollReveal>
         
         <div className="relative ml-0 space-y-12 py-4">
-          {/* Đường thẳng trục dọc ở chính giữa hiển thị trên mọi thiết bị */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2"></div>
+          {/* Đường thẳng trục dọc ở chính giữa hiển thị trên mọi thiết bị, tự vẽ từ trên xuống */}
+          <motion.div 
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2 origin-top"
+          ></motion.div>
           
           {/* Mốc 1: VinUniversity (Trên cùng - Trái) */}
-          <div className="relative flex flex-row justify-start group">
+          <ScrollReveal variant="fadeRight" delay={0.2} className="relative flex flex-row justify-start group">
             {/* Điểm nút mốc - Căn giữa trục dọc */}
             <div className="absolute left-1/2 -translate-x-1/2 top-1.5 md:top-3 w-4.5 h-4.5 rounded-full bg-black border-2 border-emerald-400 group-hover:bg-emerald-400 transition-all duration-300 group-hover:shadow-[0_0_12px_rgba(52,211,153,0.8)] z-10"></div>
             
@@ -35,10 +45,10 @@ export default function ExperienceSection() {
                 Coming soon...
               </p>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Mốc 2: Hisotech (Phải) */}
-          <div className="relative flex flex-row justify-end group">
+          <ScrollReveal variant="fadeLeft" delay={0.2} className="relative flex flex-row justify-end group">
             {/* Điểm nút mốc - Căn giữa trục dọc */}
             <div className="absolute left-1/2 -translate-x-1/2 top-1.5 md:top-3 w-4.5 h-4.5 rounded-full bg-black border-2 border-cyan-400 group-hover:bg-cyan-400 transition-all duration-300 group-hover:shadow-[0_0_12px_rgba(34,211,238,0.8)] z-10"></div>
             
@@ -50,10 +60,10 @@ export default function ExperienceSection() {
                 Coming soon...
               </p>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Mốc 3: Hobasoft (Trái) */}
-          <div className="relative flex flex-row justify-start group">
+          <ScrollReveal variant="fadeRight" delay={0.2} className="relative flex flex-row justify-start group">
             {/* Điểm nút mốc - Căn giữa trục dọc */}
             <div className="absolute left-1/2 -translate-x-1/2 top-1.5 md:top-3 w-4.5 h-4.5 rounded-full bg-black border-2 border-indigo-400 group-hover:bg-indigo-400 transition-all duration-300 group-hover:shadow-[0_0_12px_rgba(129,140,248,0.8)] z-10"></div>
             
@@ -65,10 +75,10 @@ export default function ExperienceSection() {
                 Coming soon...
               </p>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Mốc 4: Công ty dịch vụ số (Phải) */}
-          <div className="relative flex flex-row justify-end group">
+          <ScrollReveal variant="fadeLeft" delay={0.2} className="relative flex flex-row justify-end group">
             {/* Điểm nút mốc - Căn giữa trục dọc */}
             <div className="absolute left-1/2 -translate-x-1/2 top-1.5 md:top-3 w-4.5 h-4.5 rounded-full bg-black border-2 border-teal-400 group-hover:bg-teal-400 transition-all duration-300 group-hover:shadow-[0_0_12px_rgba(45,212,191,0.8)] z-10"></div>
             
@@ -80,10 +90,10 @@ export default function ExperienceSection() {
                 Coming soon...
               </p>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Mốc 5: Cao đẳng FPT (Dưới cùng - Trái) */}
-          <div className="relative flex flex-row justify-start group">
+          <ScrollReveal variant="fadeRight" delay={0.2} className="relative flex flex-row justify-start group">
             {/* Điểm nút mốc - Căn giữa trục dọc */}
             <div className="absolute left-1/2 -translate-x-1/2 top-1.5 md:top-3 w-4.5 h-4.5 rounded-full bg-black border-2 border-cyan-400 group-hover:bg-cyan-400 transition-all duration-300 group-hover:shadow-[0_0_12px_rgba(34,211,238,0.8)] z-10"></div>
             
@@ -95,7 +105,7 @@ export default function ExperienceSection() {
                 Coming soon...
               </p>
             </div>
-          </div>
+          </ScrollReveal>
 
         </div>
       </div>

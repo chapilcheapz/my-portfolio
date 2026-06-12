@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Card3D from './Card3D';
+import ScrollReveal from './ScrollReveal';
+import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -31,58 +33,99 @@ export default function HeroSection() {
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, currentWordIndex]);
 
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setShowScrollIndicator(false);
+      } else {
+        setShowScrollIndicator(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Chạy thử ban đầu trong trường hợp trang được tải lại ở vị trí đã cuộn
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div id="home" className="flex h-screen relative z-10">
       {/* Card3D Overlay */}
-      <div className="absolute inset-0 z-20 pointer-events-none">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+        className="absolute inset-0 z-20 pointer-events-none exclude-from-snapshot"
+      >
         <div className="absolute inset-0 pointer-events-auto">
           <Card3D />
         </div>
-      </div>
+      </motion.div>
       
       {/* Bên trái - Slogan Content */}
       <div className="flex-1 max-w-2xl p-12 flex flex-col justify-center pointer-events-auto select-none">
         <div className="space-y-6">
           {/* Badge */}
-          <div className="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-cyan-400 backdrop-blur-md">
-            <span className="flex h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
-            <span>Lập Trình Viên Sáng Tạo</span>
-          </div>
+          <ScrollReveal variant="fadeUp" delay={0.1}>
+            <div className="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-cyan-400 backdrop-blur-md">
+              <span className="flex h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
+              <span>Lập Trình Viên Sáng Tạo</span>
+            </div>
+          </ScrollReveal>
 
           {/* Main Slogan */}
-          <h1 className="text-5xl md:text-6xl font-black tracking-tight leading-tight">
-            Biến Mọi Ý Tưởng Thành{" "}
-            <span className="font-serif italic font-light text-cyan-400">
-              Hiện Thực Số
-            </span>
-          </h1>
+          <ScrollReveal variant="fadeUp" delay={0.3}>
+            <h1 className="text-5xl md:text-6xl font-black tracking-tight leading-tight">
+              Biến Mọi Ý Tưởng Thành{" "}
+              <span className="font-serif italic font-light text-cyan-400">
+                Hiện Thực Số
+              </span>
+            </h1>
+          </ScrollReveal>
 
           {/* Sub-slogan / Description */}
-          <div className="space-y-4">
-            <p className="text-lg md:text-xl text-gray-400 leading-relaxed font-light">
-              Tôi là <span className="text-white font-medium">Hoàng Quân</span>.
-            </p>
-            <div className="text-2xl md:text-3xl font-bold flex items-center h-10 select-none">
-              <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-indigo-400 bg-clip-text text-transparent font-mono tracking-tight">
-                {currentText}
-              </span>
-              <span className="w-1.5 h-6 bg-cyan-400 ml-1.5 animate-pulse"></span>
+          <ScrollReveal variant="fadeUp" delay={0.5}>
+            <div className="space-y-4">
+              <p className="text-lg md:text-xl text-gray-400 leading-relaxed font-light">
+                Tôi là <span className="text-white font-medium">Hoàng Quân</span>.
+              </p>
+              <div className="text-2xl md:text-3xl font-bold flex items-center h-10 select-none">
+                <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-indigo-400 bg-clip-text text-transparent font-mono tracking-tight">
+                  {currentText}
+                </span>
+                <span className="w-1.5 h-6 bg-cyan-400 ml-1.5 animate-pulse"></span>
+              </div>
+              <p className="text-base text-gray-400 leading-relaxed font-light">
+                Đam mê xây dựng hệ thống hiệu năng cao, tối ưu hóa cơ sở dữ liệu và thiết kế kiến trúc hệ thống tối ưu.
+              </p>
             </div>
-            <p className="text-base text-gray-400 leading-relaxed font-light">
-              Đam mê xây dựng hệ thống hiệu năng cao, tối ưu hóa cơ sở dữ liệu và thiết kế kiến trúc hệ thống tối ưu.
-            </p>
-          </div>
+          </ScrollReveal>
          
         </div>
       </div>
 
-      {/* Scroll Down Indicator - Chỉ hiện ở Trang Chủ */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 pointer-events-none select-none">
+      {/* Scroll Down Indicator - Chỉ hiện ở Trang Chủ và mờ dần ẩn đi khi cuộn xuống dưới */}
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ 
+          opacity: showScrollIndicator ? 1 : 0, 
+          y: showScrollIndicator ? 0 : 15,
+          pointerEvents: showScrollIndicator ? 'auto' : 'none'
+        }}
+        transition={{ 
+          opacity: { duration: 0.3, ease: "easeInOut" },
+          y: { duration: 0.4, ease: "easeOut" }
+        }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 select-none"
+      >
         <span className="text-[10px] text-gray-400 uppercase tracking-widest font-mono font-bold tracking-[0.2em]">Cuộn Xuống</span>
         <div className="w-6 h-10 border border-white/20 rounded-full flex justify-center p-1.5 bg-white/5 backdrop-blur-sm shadow-lg">
           <div className="w-1 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

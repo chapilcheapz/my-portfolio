@@ -87,4 +87,48 @@
   opacity: 1;
 }
 
+/* Snapshot Capturing Helpers - Cưỡng ép hiển thị nội dung để chụp full trang */
+body.is-capturing-snapshot #projects,
+body.is-capturing-snapshot #experience,
+body.is-capturing-snapshot #skills,
+body.is-capturing-snapshot #contact,
+body.is-capturing-snapshot #home {
+  opacity: 1 !important;
+}
+
+body.is-capturing-snapshot #projects *,
+body.is-capturing-snapshot #experience *,
+body.is-capturing-snapshot #skills *,
+body.is-capturing-snapshot #contact *,
+body.is-capturing-snapshot #home * {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Kéo dài hình nền mạch điện ra toàn bộ chiều cao trang trong lúc chụp snapshot để menu xuyên thấu được ở các section dưới */
+body.is-capturing-snapshot .fixed.inset-0.overflow-hidden {
+  position: absolute !important;
+  height: 100% !important;
+  bottom: auto !important;
+}
+
+body.is-capturing-snapshot .fixed.inset-0.overflow-hidden canvas.circuit-canvas {
+  position: absolute !important;
+  height: 100% !important;
+  bottom: auto !important;
+}
+
+/* Ẩn các phần tử loại trừ khỏi snapshot */
+body.is-capturing-snapshot .exclude-from-snapshot,
+body.is-capturing-snapshot .exclude-from-snapshot * {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+body.is-capturing-snapshot .glass-container,
+body.is-capturing-snapshot .glass-container * {
+  opacity: 0 !important;
+  display: none !important;
+}
+
 
