@@ -301,6 +301,10 @@ export default function CircuitBackground({
         } else {
           start();
         }
+      } else {
+        // Chỉ cập nhật kích thước hiển thị CSS để tránh khoảng xám ở đáy mobile
+        canvas.style.width = `${newWidth}px`;
+        canvas.style.height = `${newHeight}px`;
       }
     });
     resizeObserver.observe(container);

@@ -647,14 +647,16 @@ export default class Container {
   }
 
   startRenderLoop() {
+    const isMobile = window.innerWidth < 768
+
     const render = () => {
       if (!this.gl_refs.gl) return
 
       const gl = this.gl_refs.gl
       gl.clear(gl.COLOR_BUFFER_BIT)
 
-      // Update scroll position
-      const scrollY = window.pageYOffset || document.documentElement.scrollTop
+      // Update scroll position (đặt bằng 0 trên di động để tăng hiệu năng và tránh giật hình)
+      const scrollY = isMobile ? 0 : (window.pageYOffset || document.documentElement.scrollTop)
       gl.uniform1f(this.gl_refs.scrollYLoc, scrollY)
 
       // Update container position (in case it moved)
@@ -666,8 +668,10 @@ export default class Container {
 
     render()
 
-    const handleScroll = () => render()
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    if (!isMobile) {
+      const handleScroll = () => render()
+      window.addEventListener('scroll', handleScroll, { passive: true })
+    }
 
     // Store render function for external calls
     this.render = render

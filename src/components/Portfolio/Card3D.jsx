@@ -10,11 +10,22 @@ useGLTF.preload('/3D/Scene.glb')
 useTexture.preload('/3D/band.png')
 
 export default function App() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
-    <Canvas camera={{ position: [0, 0, 13], fov: 25 }}>
+    <Canvas camera={{ position: [0, 0, 13], fov: 25 }} style={{ touchAction: 'pan-y' }}>
       <ambientLight intensity={Math.PI} />
       <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
-        <Band />
+        <Band key={isMobile ? 'mobile' : 'desktop'} isMobile={isMobile} />
       </Physics>
       <Environment >
         <color attach="background" args={['black']} />
@@ -27,7 +38,7 @@ export default function App() {
   )
 }
 
-function Band({ maxSpeed = 50, minSpeed = 10 }) {
+function Band({ maxSpeed = 50, minSpeed = 10, isMobile }) {
   const band = useRef(), fixed = useRef(), j1 = useRef(), j2 = useRef(), j3 = useRef(), card = useRef() // prettier-ignore
   const vec = new THREE.Vector3(), ang = new THREE.Vector3(), rot = new THREE.Vector3(), dir = new THREE.Vector3() // prettier-ignore
   const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 2, linearDamping: 2 }
@@ -38,10 +49,22 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   const [dragged, drag] = useState(false)
   const [hovered, hover] = useState(false)
 
-  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]) // prettier-ignore
-  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]) // prettier-ignore
-  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]) // prettier-ignore
-  useSphericalJoint(j3, card, [[0, 0, 0], [0, 1.45, 0],]) // prettier-ignore
+  // Tính toán các thông số responsive dựa trên chế độ màn hình
+  const groupPosition = isMobile ? [0.95, 2.9, 0] : [3, 4, 0]
+  const cardScale = isMobile ? 0.8 : 2.25
+  const cardPosition = isMobile ? [0, -0.43, -0.05] : [0, -1.2, -0.05]
+  const j1Pos = isMobile ? [0.18, 0, 0] : [0.5, 0, 0]
+  const j2Pos = isMobile ? [0.36, 0, 0] : [1, 0, 0]
+  const j3Pos = isMobile ? [0.53, 0, 0] : [1.5, 0, 0]
+  const cardPos = isMobile ? [0.71, 0, 0] : [2, 0, 0]
+  const cardColliderArgs = isMobile ? [0.285, 0.4, 0.01] : [0.8, 1.125, 0.01]
+  const jointAnchor = isMobile ? 0.52 : 1.45
+  const ropeLength = isMobile ? 0.36 : 1
+
+  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], ropeLength]) // prettier-ignore
+  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], ropeLength]) // prettier-ignore
+  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], ropeLength]) // prettier-ignore
+  useSphericalJoint(j3, card, [[0, 0, 0], [0, jointAnchor, 0],]) // prettier-ignore
 
   useEffect(() => {
     if (hovered) {
@@ -83,22 +106,22 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
 
   return (
     <>
-      <group position={[3, 4, 0]}>
+      <group position={groupPosition}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
-        <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
+        <RigidBody position={j1Pos} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}>
+        <RigidBody position={j2Pos} ref={j2} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}>
+        <RigidBody position={j3Pos} ref={j3} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
-          <CuboidCollider args={[0.8, 1.125, 0.01]} />
+        <RigidBody position={cardPos} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
+          <CuboidCollider args={cardColliderArgs} />
           <group
-            scale={2.25}
-            position={[0, -1.2, -0.05]}
+            scale={cardScale}
+            position={cardPosition}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
             onPointerUp={(e) => (e.target.releasePointerCapture(e.pointerId), drag(false))}
@@ -113,7 +136,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
       </group>
       <mesh ref={band}>
         <meshLineGeometry />
-        <meshLineMaterial color="white" depthTest={false} resolution={[width, height]} useMap map={texture} repeat={[-3, 1]} lineWidth={1} />
+        <meshLineMaterial color="white" depthTest={false} resolution={[width, height]} useMap map={texture} repeat={[-3, 1]} lineWidth={isMobile ? 0.35 : 1} />
       </mesh>
     </>
   )

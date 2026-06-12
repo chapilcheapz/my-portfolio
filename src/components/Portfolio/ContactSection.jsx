@@ -24,10 +24,10 @@ export default function ContactSection() {
         {/* Phần Chữ Chạy Nền (Marquee) */}
         <div className="relative overflow-hidden w-full py-6 md:py-8 select-none pointer-events-none border-y border-white/[0.08]">
           <div className="flex whitespace-nowrap animate-marquee w-max">
-            <div className="text-5xl md:text-7xl lg:text-8xl font-serif italic uppercase text-white/[0.08] tracking-widest pr-4">
+            <div className="text-5xl md:text-7xl lg:text-8xl font-serif italic uppercase text-white/[0.35] tracking-widest pr-4">
               Building The Future • Building The Future • Building The Future • Building The Future •&nbsp;
             </div>
-            <div className="text-5xl md:text-7xl lg:text-8xl font-serif italic uppercase text-white/[0.08] tracking-widest pr-4">
+            <div className="text-5xl md:text-7xl lg:text-8xl font-serif italic uppercase text-white/[0.35] tracking-widest pr-4">
               Building The Future • Building The Future • Building The Future • Building The Future •&nbsp;
             </div>
           </div>
