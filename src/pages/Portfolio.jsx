@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CircuitBackground from '../components/Portfolio/CircuitBackground';
 import HeroSection from '../components/Portfolio/HeroSection';
 import ProjectsSection from '../components/Portfolio/ProjectsSection';
@@ -11,11 +11,27 @@ import '../lib/liquid-glass/glass.css';
 
 export default function Portfolio() {
   const menuRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+
+  // Lắng nghe sự kiện resize để chuyển đổi isMobile trong thời gian thực (ví dụ khi bật tắt devtools mobile emulator hoặc xoay màn hình)
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 640;
+      if (mobile !== isMobile) {
+        setIsMobile(mobile);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile]);
 
   useEffect(() => {
     if (!menuRef.current) return;
+
+    // Reset snapshot cũ để menu kính bắt buộc chụp lại snapshot nền mới theo đúng tỉ lệ màn hình mới
+    Container.pageSnapshot = null;
     
-    // Xóa mọi phần tử cũ (nếu có) để tránh lặp lại khi render trong React.StrictMode
+    // Xóa mọi phần tử cũ (nếu có) để tránh lặp lại khi render trong React.StrictMode hoặc khi resize chạy lại
     menuRef.current.innerHTML = '';
 
     // Định nghĩa cấu hình glassControls giống hệt trang demo gốc để có hiệu ứng kính lỏng tốt nhất
@@ -41,7 +57,6 @@ export default function Portfolio() {
       }
     };
 
-    const isMobile = window.innerWidth < 640;
     const btnFontSize = isMobile ? 12 : 15;
 
     const btn1 = new Button({ text: 'Trang Chủ', type: 'pill', size: btnFontSize, tintOpacity: 0.15, onClick: () => scrollToSection('home') });
@@ -97,13 +112,13 @@ export default function Portfolio() {
     handleScrollSpy();
 
     return () => {
-      // Dọn dẹp DOM khi unmount
+      // Dọn dẹp DOM khi unmount hoặc chạy lại
       if (menuRef.current && container.element) {
         menuRef.current.innerHTML = '';
       }
       window.removeEventListener('scroll', handleScrollSpy);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="min-h-screen text-white relative">
