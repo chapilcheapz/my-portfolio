@@ -39,6 +39,8 @@ export default function CircuitBackground({
 
     let width = 0;
     let height = 0;
+    let lastWidth = 0;
+    let lastHeight = 0;
     let dpr = 1;
     let edges = [];
     let pulses = [];
@@ -138,6 +140,8 @@ export default function CircuitBackground({
       const rect = container.getBoundingClientRect();
       width = rect.width;
       height = rect.height;
+      lastWidth = width;
+      lastHeight = height;
       dpr = window.devicePixelRatio || 1;
       canvas.width = Math.max(1, Math.floor(width * dpr));
       canvas.height = Math.max(1, Math.floor(height * dpr));
@@ -281,12 +285,22 @@ export default function CircuitBackground({
     }
 
     const resizeObserver = new ResizeObserver(() => {
-      stop();
-      resize();
-      if (prefersReducedMotion) {
-        draw();
-      } else {
-        start();
+      const rect = container.getBoundingClientRect();
+      const newWidth = rect.width;
+      const newHeight = rect.height;
+
+      // Bỏ qua thay đổi kích thước nhỏ (co giãn URL bar trên di động)
+      const widthChanged = Math.abs(newWidth - lastWidth) > 5;
+      const heightChanged = Math.abs(newHeight - lastHeight) > 120;
+
+      if (widthChanged || heightChanged) {
+        stop();
+        resize();
+        if (prefersReducedMotion) {
+          draw();
+        } else {
+          start();
+        }
       }
     });
     resizeObserver.observe(container);
